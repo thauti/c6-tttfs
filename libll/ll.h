@@ -7,17 +7,20 @@
 
 typedef char* block;
 
-typedef struct disk_id
+typedef struct disk_id_s
 {
 	int file_descriptor;
-	block* buffer;
+	block buffer;
 	int block_curr;
-}disk_id;
+} disk_id_s;
 
+typedef disk_id_s* disk_id; 
 
-int start_disk(char *name,disk_id *id);
+typedef int error;
 
-//int read_block(disk_id,block b,uint32_t num);
-//int write_block(disk_id,block b,uint32_t num);
-//int sync(disk_id);
-int stop_disk(disk_id* id);
+error start_disk(char *name,disk_id *id);
+
+error read_block(disk_id id ,block b,uint32_t num);
+error write_block(disk_id id,block b,uint32_t num);
+error sync_disk(disk_id id);
+error stop_disk(disk_id id);
