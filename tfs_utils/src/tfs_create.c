@@ -3,12 +3,14 @@
 #include <string.h>
 
 #include "ll.h"
+#include "tfs_utils.h"
 
 int main(int argc, char* argv[])
 {
-	int size;
+	uint32_t size;
 	disk_id d;
 	block b;
+	block f;
 	char* nom;
 
 	if(argc != 3)
@@ -41,12 +43,16 @@ int main(int argc, char* argv[])
 
 	d = malloc(sizeof(disk_id_s));
 	b = malloc(BLOCK_SIZE);
+	f = malloc(BLOCK_SIZE);
+	printf("%d", size);
+	strncpy(f,toLittleEndian(size),4);
 	if(argc == 4)
 		nom = argv[3];
 	else
 		nom = "disk.tfs";
 	start_disk(nom, &d);
 	write_block(d, b, size-1);
+	write_block(d, f, 0);
 	printf("Creation du disque %s de taille %d blocs (%d octets) \n", nom, size, size*BLOCK_SIZE);
 	return 0;
 }
