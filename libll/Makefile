@@ -5,6 +5,7 @@ HEADERS = ll.h
 OBJECTS = $(patsubst %.c, %.o, $(wildcard *.c))
 
 all: $(EXEC)
+	cp libll.so ..
 
 $(EXEC): $(OBJECTS)
 	$(CC) -shared -o $@ $^
