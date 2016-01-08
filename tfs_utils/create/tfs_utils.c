@@ -20,6 +20,6 @@ char* toLittleEndian(uint32_t n)
 	v[2]=(n>>16)& 0xFF;
 	v[1]=(n>>8)& 0xFF;
 	v[0]=n;
-	printf("%x %x %x %x\n", v[0], v[1], v[2], v[3]);
+	printf("\n %x %x %x %x\n", v[0], v[1], v[2], v[3]);
 	return v;
 }
