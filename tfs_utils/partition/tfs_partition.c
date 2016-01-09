@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
 	}
 	
 	int partition[npartition];
-	printf("npar = %d \n", npartition);
+	//printf("npar = %d \n", npartition);
 	int k=0;
 	for(i=1;i<argc-1;i++)
 	{
@@ -85,7 +85,7 @@ int main(int argc, char* argv[])
 
 	char* n_little = toLittleEndian(npartition); 
 
-	printf("%s", nom);
+	//printf("%s", nom);
 	start_disk(nom, &d);
 	read_block(d, first_block, 0);
 
@@ -97,7 +97,7 @@ int main(int argc, char* argv[])
 	}
 	char* sub = blocksub(first_block,0);
 	int taille_disk = data_to_int(sub, 4);
-	printf("-> %d\n", taille_disk);
+	//printf("-> %d\n", taille_disk);
 	if(tmp > taille_disk-1)
 	{
 		fprintf(stderr, "Erreur: La taille totale des partitions dépasse la taille du disque \n");
