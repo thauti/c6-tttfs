@@ -53,6 +53,7 @@ int main(int argc, char* argv[])
 	start_disk(nom, &d);
 	write_block(d, b, size-1);
 	write_block(d, f, 0);
+	stop_disk(d);
 	printf("Creation du disque %s de taille %d blocs (%d octets) \n", nom, size, size*BLOCK_SIZE);
 	return 0;
 }

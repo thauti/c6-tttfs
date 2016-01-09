@@ -23,3 +23,13 @@ char* toLittleEndian(uint32_t n)
 	printf("\n %x %x %x %x\n", v[0], v[1], v[2], v[3]);
 	return v;
 }
+int ajouter_infos(block org, int offset, char* dest, int dest_size)
+{
+	int i = 0;
+	int k = offset;
+	for(i=0;i<dest_size;i++)
+	{
+		org[++k] = dest[i];
+	}
+	return 0;
+}

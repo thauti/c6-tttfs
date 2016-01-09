@@ -41,13 +41,14 @@ int main()
 */
 error start_disk(char *name,disk_id *id)
 {
-	printf("Lancement du disque \n");
+	printf("Lancement du disque %s \n", name);
 	int fd;
 	fd = open(name,  O_RDWR | O_CREAT, S_IRWXU | S_IRWXG | S_IRWXO);
 
-	if(id == NULL)
+	if(fd <0)
 	{
 		fprintf(stderr, "Erreur impossible de lire le fichier\n");
+		return 1;
 	}
 	(*id)->file_descriptor = fd;
 	(*id)->buffer = malloc(BLOCK_SIZE);
@@ -71,11 +72,9 @@ error read_physical_block(disk_id id, block b, uint32_t num)
 	lseek(id->file_descriptor, num*BLOCK_SIZE, SEEK_SET);
 	read(id->file_descriptor, b, BLOCK_SIZE);
 	id->buffer = b;
-	printf("| %c |\n", id->buffer[1]);
-
-	printf("..%c..\n", b[1]);
+	
 	id->block_curr = num;
-	printf("Mis en cache %d \n", id->block_curr);
+	//printf("Mis en cache %d \n", id->block_curr);
 	return 0;
 }
 error write_physical_block(disk_id id, block b, uint32_t num)
@@ -91,7 +90,7 @@ error sync_disk(disk_id id)
 {
 	// On vide le buffer sur le disque
 	if(id->block_curr != -1){
-		printf("Vidage du buffer \n");
+		//printf("Vidage du buffer \n");
 		lseek(id->file_descriptor,id->block_curr*BLOCK_SIZE, SEEK_SET);
 		write(id->file_descriptor, id->buffer, BLOCK_SIZE);
 		id->block_curr = -1;
@@ -104,7 +103,7 @@ error read_block(disk_id id,block b,uint32_t num)
 
 	if(num == id->block_curr)
 	{
-		printf("Lecture depuis le buffer %c \n", id->buffer[1]);
+		//printf("Lecture depuis le buffer %c \n", id->buffer[1]);
 
 		int i;
 		for(i=0; i<BUF_SIZE;i++)
@@ -125,7 +124,7 @@ error write_block(disk_id id, block b, uint32_t num)
 {
 	if(num == id->block_curr)
 	{
-		printf("Ecriture sur le buffer \n");
+		//printf("Ecriture sur le buffer \n");
 		id->buffer = b;
 
 	}
