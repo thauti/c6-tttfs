@@ -94,8 +94,8 @@ int main(int argc, char* argv[])
 		fprintf(stderr, "Erreur: La partition ne peut pas stocker autant de fichier\n");
 		exit(-1);
 	}
-	int free_block_count= (taille-filetable_long)-2;
-	int next_free = filetable_long+2+1;
+	int free_block_count= (taille-filetable_long)-1;
+	int next_free = filetable_long+2;
 
 
 	block b_partition = malloc(BLOCK_SIZE);

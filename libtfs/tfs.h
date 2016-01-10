@@ -5,4 +5,5 @@
 
 typedef block* Volume;
 
-Volume getVolume(disk_id id, int part);
+int getvolumedeb(disk_id d, int part);
+int add_free_block(disk_id d,int volume, int b);
