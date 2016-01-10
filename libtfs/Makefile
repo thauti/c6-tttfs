@@ -5,7 +5,7 @@ HEADERS = ll.h tfs.h
 OBJECTS = $(patsubst %.c, %.o, $(wildcard *.c))
 
 all: $(EXEC)
-	#cp libtfs.so ..
+	cp libtfs.so ..
 
 $(EXEC): $(OBJECTS)
 	$(CC)   -L ..  -lll -o $@ $^

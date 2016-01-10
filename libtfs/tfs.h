@@ -14,4 +14,4 @@ int getFreeFile(disk_id d, int volume);
 int getNextFreeB(disk_id  d, int volume);
 int putDirEntry(disk_id d, int volume, int pred);
 int setNextFreeF(disk_id d, int volume, int x);
-int removeEntry(disk_id d, int volume);
+int removeEntry(disk_id di, int volume, int n);

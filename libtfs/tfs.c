@@ -17,16 +17,18 @@ int main()
 	printf(" ====> %d\n",getvolumedeb(d,0));
 	//delete_free_block(d, 0, 3);
 	putDirEntry(d,0,2);
+	removeEntry(d,0,1);
 	stop_disk(d);
 	return 0;
 }
-int removeEntry(disk_id d, int volume, int n)
+int removeEntry(disk_id di, int volume, int n)
 {
-	int offset = getvolumedeb(d,volume);
+	int offset = getvolumedeb(di,volume);
 	block bl = malloc(BLOCK_SIZE);
 	int r = n%16;
 	int d = n/16;
-	read_block(d, bl,((offset+d*1024)/1024)+1);
+	read_block(di, bl,((offset+d*1024)/1024)+1);
+	int j;
 	if(r==0)
 	{
 		j=0;
@@ -35,19 +37,74 @@ int removeEntry(disk_id d, int volume, int n)
 	{
 		j = 64*r;
 	}
-
+	printf("=>> %d", j);
+/*
 	int k;
 	int temp;
 	block empty = malloc(BLOCK_SIZE);
 	for(k=0;k<10;k++)
 	{
 		temp = data_to_int(blocksub(bl,j+(16+k*4)),4);
+
 		if(temp!=0){
-		printf("Libération du bloc %d", temp)
-		write_block(d,empty,temp);
-		add_free_block(d,volume, temp);
+			printf("Libération du bloc %d", temp);
+			write_block(di,empty,offset+temp);
+			add_free_block(di,volume, (1024*temp+offset)/1024);
 		}
 	}
+	/*
+	int w = data_to_int(blocksub(bl,j+56),4);
+	if(w!=0)
+	{
+
+		block s = malloc(BLOCK_SIZE);
+		read_block(di,s, (1024*j+offset)/1024);
+		int off = 0;
+		int nn;
+		while(off<1024)
+		{
+			nn = data_to_int(blocksub(s,off),4);
+			if(nn!=0)
+			{
+				write_block(di,empty,(1024*nn+offset)/1024);
+				add_free_block(di,volume,(1024*nn+offset)/1024);
+			}
+			off+=4;
+		}
+	}/*
+	int l =  data_to_int(blocksub(bl,j+60),4);
+	if(l!=0)
+	{
+
+		block s = malloc(BLOCK_SIZE);
+		block s2 = malloc(BLOCK_SIZE);
+		read_block(di,s, (1024*j+offset)/1024);
+		int off2 = 0;
+		int off3=0;
+		int nn2;
+		int nn3;
+		while(off2<1024)
+		{
+			s2 = malloc(BLOCK_SIZE);
+			nn2 = data_to_int(blocksub(s,off2),4);
+			if(nn2!=0){
+			while(off3<1024)
+			{
+				nn3 = data_to_int(blocksub(s,off3),4);
+				if(nn3!=0)
+				{
+					write_block(di,empty,(1024*nn3+offset)/1024);
+					add_free_block(di,volume,(1024*nn3+offset)/1024);
+				}
+				off3+=4;
+			}
+			}
+			read_block(di,s2,(1024*nn2+offset)/1024);
+			add_free_block(di,volume,(1024*nn2+offset)/1024);
+			off2++;
+		}
+		write_block(di,empty,((1024*nn3+offset)/1024));
+	}	*/
 	ajouter_infos(bl,0+j, toLittleEndian(32), 4);
 	ajouter_infos(bl,4+j, toLittleEndian(1), 4);
 	ajouter_infos(bl,8+j, toLittleEndian(0), 4);
@@ -67,6 +124,7 @@ int removeEntry(disk_id d, int volume, int n)
 
 	return 0;
 }
+
 int putDirEntry(disk_id d, int volume, int pred)
 {
 	int offset = getvolumedeb(d,volume);
@@ -136,12 +194,12 @@ int putDirEntry(disk_id d, int volume, int pred)
 	return 0;
 }
 int setNextFreeF(disk_id d, int volume, int x)
-{/*
+{
 	int off = getvolumedeb(d,volume);
 	block blk = malloc(BLOCK_SIZE);
 	read_block(d, blk,off/1024);
 	char* xc = toLittleEndian(x);
-	ajouter_infos(blk,28,xc,sizeof(xc));*/
+	ajouter_infos(blk,28,xc,sizeof(xc));
 	return 0;
 }
 int getNextFreeF(disk_id d, int volume)
