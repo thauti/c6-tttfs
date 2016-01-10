@@ -199,7 +199,7 @@ int main(int argc, char* argv[])
 	//	Racine (Filetable)
 	//
 
-	char* r_taille = toLittleEndian(39);
+	char* r_taille = toLittleEndian(64);
 	char* r_type = toLittleEndian(1);
 	char* r_empty = toLittleEndian(0);
 	char* r_fb = toLittleEndian(filetable_long+1);

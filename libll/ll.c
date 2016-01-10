@@ -11,34 +11,7 @@
 error read_physical_block(disk_id id, block b, uint32_t num);
 error write_physical_block(disk_id id,block b,uint32_t num);
 
-/*
-int main()
-{
-	char* t = malloc(1024);
-	t[1] = 'c';
-	char* t2 = malloc(1024);
-	char* t3 = malloc(1024);
-	t2[1] = 'd';
-	block b = t;
-	block b2 = t2;
-	block b3 = t3;
-	disk_id d;
 
-	d = malloc(sizeof(disk_id_s));
-
-	start_disk("disk.tfs", &d);
-
-	write_block(d,b,3);
-	write_block(d,b2,2);
-	read_block(d, b3, 3);
-	printf("--%c \n", b3[1]);
-	read_block(d, b3, 2);
-	printf("--%c \n", b3[1]);
-
-	stop_disk(d);
-    return 0;
-}
-*/
 error start_disk(char *name,disk_id *id)
 {
 	printf("Lancement du disque %s \n", name);
