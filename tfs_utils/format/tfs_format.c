@@ -188,7 +188,7 @@ int main(int argc, char* argv[])
 			end = toLittleEndian(ii+1);
 			printf("-> %d", end[0]);
 		}
-		ajouter_infos(bd, 1019,end, sizeof(end));
+		ajouter_infos(bd, 1020,end, sizeof(end));
 		write_block(d,bd,pos+p_fichier+1+i_fb+1);
 		ii++;
 		i_fb++;

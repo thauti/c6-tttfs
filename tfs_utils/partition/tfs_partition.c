@@ -77,7 +77,7 @@ int main(int argc, char* argv[])
 	write_block(d, f, 0);
 	printf("Creation du disque %s de taille %d blocs (%d octets) \n", nom, size, size*BLOCK_SIZE);*/
 
-	int offset = 3;
+	int offset = 4;
 	disk_id d;
 	d=malloc(sizeof(disk_id_s));
 	

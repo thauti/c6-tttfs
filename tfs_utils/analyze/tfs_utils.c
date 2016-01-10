@@ -32,7 +32,8 @@ int ajouter_infos(block org, int offset, char* dest, int dest_size)
 	int k = offset;
 	for(i=0;i<dest_size;i++)
 	{
-		org[++k] = dest[i];
+		org[k] = dest[i];
+		k++;
 	}
 	return 0;
 }
