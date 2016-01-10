@@ -95,6 +95,7 @@ int main(int argc, char* argv[])
 		exit(-1);
 	}
 	int free_block_count= (taille-filetable_long)-1;
+	int free_block_count_bis = free_block_count-1;
 	int next_free = filetable_long+2;
 
 
@@ -109,7 +110,7 @@ int main(int argc, char* argv[])
 	char* MAGIC_NUM = toLittleEndian(TTTFS_MAGIC_NUMBER);
 	char* VOLUME_BLOCK = toLittleEndian(TTTFS_VOLUME_BLOCK_SIZE);
 	char* BLOCK_COUNT = toLittleEndian(taille);
-	char* FREE_BLOCK = toLittleEndian(free_block_count);
+	char* FREE_BLOCK = toLittleEndian(free_block_count_bis);
 	char* NEXT_FREE = toLittleEndian(next_free);
 	char* MAX_FILE = toLittleEndian(file_count);
 	char* FREE_FILE = toLittleEndian(file_count-1);
@@ -177,10 +178,10 @@ int main(int argc, char* argv[])
 	int i_fb = 0;
 	int ii = filetable_long+1;
 	char* end;
-	while(i_fb<free_block_count+1)
+	while(i_fb<free_block_count)
 	{
 		bd = malloc(TTTFS_VOLUME_BLOCK_SIZE);
-		if(i_fb+1==free_block_count+1)
+		if(i_fb+1==free_block_count)
 		{
 			end = toLittleEndian(ii);
 		}else
