@@ -14,10 +14,11 @@ int main()
 {
 	disk_id d = malloc(sizeof(disk_id_s));
 	start_disk("truc.tfs", &d);
-	printf(" ====> %d\n",getvolumedeb(d,0));
+	
 	//delete_free_block(d, 0, 3);
-	putDirEntry(d,0,2);
-	removeEntry(d,0,1);
+	//putDirEntry(d,0,2);
+	//removeEntry(d,0,1);
+	
 	stop_disk(d);
 	return 0;
 }
